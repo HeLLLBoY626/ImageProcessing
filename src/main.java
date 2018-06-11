@@ -1,6 +1,4 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 
 /* @author  Suman Paul
    @email   paulsuman@protonmail.com
@@ -19,6 +17,7 @@ class consumer {
             String line=read(in);
             int height= Integer.parseInt(line.substring(0,line.indexOf(' '))),width=Integer.parseInt(line.substring(line.indexOf(' ')+1));
             short[][] matrix=new short[height][width];
+            final short MAX=Short.parseShort(read(in));
             for (int i = 0; i <(height*width) ; i++) {
                 matrix[i/width][i%width]=Short.parseShort(read(in));
             }
@@ -32,11 +31,16 @@ class consumer {
 
     void display(short[][] array)
     {
-        for(short[] a:array)
+        try(BufferedWriter out=new BufferedWriter(new FileWriter("/home/suman/Pictures/out1.txt"))) {
+            for (short[] a : array) {
+                for (short b : a)
+                    out.write(b + "\t");
+                out.write('\n');
+            }
+        }
+        catch (IOException e)
         {
-            for (short b:a)
-                System.out.print(b+"\t");
-            System.out.println();
+            e.printStackTrace();
         }
     }
 
